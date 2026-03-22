@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useParams, useNavigate, useSearchParams } from "react-router";
 import type { Route } from "./+types/exam";
 import { getRandomQuestions, examConfigs, type LicenseType, type Question } from "../data/questions";
 import { ExamHeader } from "../components/exam/ExamHeader";
@@ -58,6 +58,8 @@ function LoadingSkeleton() {
 
 export default function Exam() {
   const { licenseType } = useParams();
+  const [searchParams] = useSearchParams();
+  const examSet = searchParams.get('exam') || 'random';
   const navigate = useNavigate();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -70,7 +72,9 @@ export default function Exam() {
 
   // Initialize exam
   useEffect(() => {
-    if (!licenseType || (licenseType !== 'A1' && licenseType !== 'B2')) {
+    const validLicenses: LicenseType[] = ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'C', 'D', 'E', 'F'];
+    
+    if (!licenseType || !validLicenses.includes(licenseType as LicenseType)) {
       navigate('/');
       return;
     }
@@ -82,7 +86,7 @@ export default function Exam() {
       setIsInitialized(true);
     } else {
       // Start new exam
-      const examQuestions = getRandomQuestions(licenseType as LicenseType);
+      const examQuestions = getRandomQuestions(licenseType as LicenseType, examSet);
       setQuestions(examQuestions);
       setAnswers(new Array(examQuestions.length).fill(null));
       setTimeLeft(examConfigs[licenseType as LicenseType].timeLimit * 60);
@@ -90,20 +94,20 @@ export default function Exam() {
       setViewedQuestions(new Set([0]));
       setIsInitialized(true);
     }
-  }, [licenseType, navigate]);
+  }, [licenseType, navigate, examSet]);
 
   const startNewExam = useCallback(() => {
     if (!licenseType) return;
     
     clearExamProgress();
-    const examQuestions = getRandomQuestions(licenseType as LicenseType);
+    const examQuestions = getRandomQuestions(licenseType as LicenseType, examSet);
     setQuestions(examQuestions);
     setAnswers(new Array(examQuestions.length).fill(null));
     setTimeLeft(examConfigs[licenseType as LicenseType].timeLimit * 60);
     setCurrentQuestion(0);
     setViewedQuestions(new Set([0]));
     setShowContinueModal(false);
-  }, [licenseType]);
+  }, [licenseType, examSet]);
 
   const continueExam = useCallback(() => {
     if (!savedProgress) return;

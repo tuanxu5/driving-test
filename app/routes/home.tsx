@@ -1,7 +1,5 @@
 import type { Route } from "./+types/home";
-import { LicenseCard } from "../components/home/LicenseCard";
-import { FeatureCard } from "../components/home/FeatureCard";
-import { examConfigs } from "../data/questions";
+import { ExamSelector } from "../components/home/ExamSelector";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -11,57 +9,12 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  const licenses = [
-    {
-      type: 'A1',
-      name: 'Bằng A1',
-      description: 'Xe mô tô hai bánh có dung tích xi-lanh từ 50 cm³ đến dưới 175 cm³',
-      icon: '🏍️',
-      gradient: 'from-blue-500 to-blue-600',
-      ...examConfigs.A1,
-    },
-    {
-      type: 'B2',
-      name: 'Bằng B2',
-      description: 'Xe ô tô chở người đến 9 chỗ ngồi, xe ô tô tải có trọng tải dưới 3.500kg',
-      icon: '🚗',
-      gradient: 'from-green-500 to-green-600',
-      ...examConfigs.B2,
-    },
-  ];
-
-  const features = [
-    {
-      icon: '📝',
-      title: 'Đề thi chuẩn',
-      description: 'Câu hỏi được biên soạn theo đúng quy định của Bộ GTVT Việt Nam',
-    },
-    {
-      icon: '⏱️',
-      title: 'Đếm thời gian',
-      description: 'Hệ thống đếm ngược thời gian chính xác như kỳ thi thật',
-    },
-    {
-      icon: '⚠️',
-      title: 'Câu điểm liệt',
-      description: 'Đánh dấu rõ ràng các câu hỏi điểm liệt quan trọng',
-    },
-    {
-      icon: '📊',
-      title: 'Chấm điểm tự động',
-      description: 'Kết quả chi tiết với giải thích đáp án sau khi hoàn thành',
-    },
-    {
-      icon: '📱',
-      title: 'Responsive',
-      description: 'Giao diện thân thiện trên mọi thiết bị: máy tính, tablet, điện thoại',
-    },
-    {
-      icon: '🎯',
-      title: 'Miễn phí 100%',
-      description: 'Hoàn toàn miễn phí, không giới hạn số lần thi thử',
-    },
-  ];
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -87,102 +40,186 @@ export default function Home() {
             </h1>
             
             <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed animate-fadeIn">
-              Luyện thi bằng lái xe A1, B2 với đề thi chuẩn, chấm điểm tự động
+              Luyện thi tất cả hạng bằng lái xe với đề thi chuẩn, chấm điểm tự động
               và giải thích chi tiết. Hoàn toàn miễn phí!
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fadeIn">
-              <a 
-                href="#licenses" 
+              <button
+                onClick={() => scrollToSection('exam-selector')}
                 className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-500/50 hover:shadow-xl hover:shadow-blue-500/60 transition-all duration-300 hover:scale-105"
               >
                 Bắt đầu ngay
                 <span className="ml-2">→</span>
-              </a>
-              <a 
-                href="#features" 
+              </button>
+              <button
+                onClick={() => scrollToSection('instructions')}
                 className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-bold rounded-xl border-2 border-white/20 transition-all duration-300"
               >
                 Tìm hiểu thêm
-              </a>
+              </button>
             </div>
           </div>
         </div>
 
         {/* Wave separator */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
             <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#f8fafc"/>
           </svg>
         </div>
       </section>
 
-      {/* License Cards Section */}
-      <section id="licenses" className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
+      {/* Exam Selector Section */}
+      <section id="exam-selector" className="py-20 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
               Chọn loại bằng lái
             </h2>
             <p className="text-xl text-slate-600">
-              Chọn loại bằng bạn muốn thi thử và bắt đầu ngay
+              Chọn hạng bằng bạn muốn thi thử và bắt đầu ngay
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {licenses.map((license) => (
-              <LicenseCard key={license.type} {...license} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section id="features" className="py-20 px-4 bg-slate-50">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-              Tính năng nổi bật
-            </h2>
-            <p className="text-xl text-slate-600">
-              Mọi thứ bạn cần để chuẩn bị cho kỳ thi bằng lái xe
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, idx) => (
-              <div key={idx} className="animate-fadeIn" style={{ animationDelay: `${idx * 0.1}s` }}>
-                <FeatureCard {...feature} />
-              </div>
-            ))}
-          </div>
+          <ExamSelector />
         </div>
       </section>
 
       {/* Instructions Section */}
-      <section className="py-20 px-4">
+      <section id="instructions" className="py-20 px-4">
         <div className="container mx-auto max-w-4xl">
           <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 p-8 md:p-12">
             <h3 className="text-3xl font-bold text-slate-900 mb-8 text-center">
               📋 Hướng dẫn thi
             </h3>
             
-            <div className="space-y-6">
-              {[
-                'Chọn loại bằng lái bạn muốn thi thử (A1 hoặc B2)',
-                'Làm bài trong thời gian quy định, chú ý đồng hồ đếm ngược',
-                'Câu hỏi điểm liệt được đánh dấu ⚠️ - Sai quá 1 câu sẽ trượt',
-                'Có thể chuyển qua lại giữa các câu hỏi trước khi nộp bài',
-                'Xem kết quả và đáp án chi tiết ngay sau khi nộp bài',
-                'Thi lại không giới hạn để luyện tập thêm',
-              ].map((instruction, idx) => (
-                <div key={idx} className="flex items-start gap-4 group">
-                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-                    {idx + 1}
+            <div className="space-y-8">
+              {/* Bắt đầu thi */}
+              <div>
+                <h4 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                  <span className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white text-sm">1</span>
+                  Bắt đầu thi thử
+                </h4>
+                <div className="space-y-3 ml-10">
+                  <div className="flex items-start gap-3">
+                    <span className="text-blue-500 font-bold">•</span>
+                    <p className="text-slate-700 leading-relaxed">
+                      <span className="font-semibold">Chọn hạng GPLX:</span> Hệ thống hỗ trợ đầy đủ các hạng từ A1, A2, A3, A4 (xe mô tô) đến B1, B2, C, D, E, F (xe ô tô)
+                    </p>
                   </div>
-                  <p className="text-slate-700 leading-relaxed pt-1">{instruction}</p>
+                  <div className="flex items-start gap-3">
+                    <span className="text-blue-500 font-bold">•</span>
+                    <p className="text-slate-700 leading-relaxed">
+                      <span className="font-semibold">Chọn đề thi:</span> Có 2 dạng - <span className="font-semibold text-purple-600">Ngẫu nhiên</span> (giống thi thật) hoặc <span className="font-semibold text-blue-600">Đề cố định 1-20</span> (ôn tập từng đề)
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="text-blue-500 font-bold">•</span>
+                    <p className="text-slate-700 leading-relaxed">
+                      Nhấn <span className="font-semibold">"Bắt đầu thi ngay"</span> để vào phòng thi
+                    </p>
+                  </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Thao tác trong thi */}
+              <div>
+                <h4 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                  <span className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-white text-sm">2</span>
+                  Thao tác trong bài thi
+                </h4>
+                <div className="space-y-3 ml-10">
+                  <div className="flex items-start gap-3">
+                    <span className="text-green-500 font-bold">•</span>
+                    <p className="text-slate-700 leading-relaxed">
+                      <span className="font-semibold">Di chuyển câu hỏi:</span> Dùng nút "Câu trước/Câu sau" hoặc click vào số câu bên phải
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="text-green-500 font-bold">•</span>
+                    <p className="text-slate-700 leading-relaxed">
+                      <span className="font-semibold">Chọn đáp án:</span> Click vào đáp án muốn chọn, có thể đổi đáp án bất cứ lúc nào
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="text-green-500 font-bold">•</span>
+                    <p className="text-slate-700 leading-relaxed">
+                      <span className="font-semibold">Theo dõi tiến độ:</span> Xem số câu đã trả lời và thời gian còn lại ở phía trên
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="text-green-500 font-bold">•</span>
+                    <p className="text-slate-700 leading-relaxed">
+                      <span className="font-semibold">Nộp bài:</span> Nhấn "Nộp bài" khi hoàn thành hoặc hết giờ sẽ tự động nộp
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Điều kiện đạt */}
+              <div>
+                <h4 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                  <span className="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center text-white text-sm">3</span>
+                  Điều kiện ĐẠT
+                </h4>
+                <div className="space-y-3 ml-10">
+                  <div className="bg-amber-50 border-2 border-amber-200 rounded-xl p-4">
+                    <p className="text-amber-900 font-semibold mb-2">⚠️ Lưu ý quan trọng về câu điểm liệt:</p>
+                    <p className="text-amber-800 leading-relaxed">
+                      Sai <span className="font-bold">quá 1 câu điểm liệt</span> sẽ <span className="font-bold">KHÔNG ĐẠT</span>, bất kể số câu đúng là bao nhiêu!
+                    </p>
+                  </div>
+                  
+                  <div className="grid md:grid-cols-2 gap-3 mt-4">
+                    <div className="bg-slate-50 rounded-lg p-3">
+                      <p className="font-semibold text-slate-900 mb-1">Xe mô tô (A1-A4)</p>
+                      <p className="text-sm text-slate-600">21/25 câu đúng - 19 phút</p>
+                    </div>
+                    <div className="bg-slate-50 rounded-lg p-3">
+                      <p className="font-semibold text-slate-900 mb-1">Xe ô tô (B1, B2)</p>
+                      <p className="text-sm text-slate-600">32/35 câu đúng - 22 phút</p>
+                    </div>
+                    <div className="bg-slate-50 rounded-lg p-3">
+                      <p className="font-semibold text-slate-900 mb-1">Xe tải (C)</p>
+                      <p className="text-sm text-slate-600">36/40 câu đúng - 25 phút</p>
+                    </div>
+                    <div className="bg-slate-50 rounded-lg p-3">
+                      <p className="font-semibold text-slate-900 mb-1">Xe khách (D, E, F)</p>
+                      <p className="text-sm text-slate-600">41/45 câu đúng - 30 phút</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Loại đề thi */}
+              <div>
+                <h4 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                  <span className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center text-white text-sm">4</span>
+                  Phân biệt 2 loại đề thi
+                </h4>
+                <div className="space-y-3 ml-10">
+                  <div className="bg-purple-50 border-2 border-purple-200 rounded-xl p-4">
+                    <p className="font-semibold text-purple-900 mb-2 flex items-center gap-2">
+                      <span className="w-6 h-6 bg-purple-500 rounded text-white text-xs flex items-center justify-center">🎲</span>
+                      Đề ngẫu nhiên (giống thi thật)
+                    </p>
+                    <p className="text-purple-800 text-sm leading-relaxed">
+                      Hệ thống lấy ngẫu nhiên câu hỏi từ bộ 600 câu (ô tô) hoặc 200 câu (mô tô). Mỗi lần thi sẽ có đề khác nhau, giống với đề thi sát hạch thực tế.
+                    </p>
+                  </div>
+                  
+                  <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4">
+                    <p className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
+                      <span className="w-6 h-6 bg-blue-500 rounded text-white text-xs flex items-center justify-center">📝</span>
+                      Đề cố định 1-20 (ôn tập từng đề)
+                    </p>
+                    <p className="text-blue-800 text-sm leading-relaxed">
+                      Mỗi đề có nội dung cố định, không thay đổi. Ôn hết 20 đề = ôn hết 600 câu hỏi mới nhất của Bộ Công An. Phù hợp để luyện tập và ghi nhớ từng câu.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -196,9 +233,6 @@ export default function Home() {
           <p className="text-slate-400 mb-6">
             Website luyện thi bằng lái xe trực tuyến - Miễn phí 100%
           </p>
-          <div className="text-sm text-slate-500">
-            © 2024 Driving Test VN. Được xây dựng với ❤️ bằng React Router
-          </div>
         </div>
       </footer>
     </div>

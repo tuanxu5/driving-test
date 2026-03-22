@@ -1,6 +1,6 @@
 // Ngân hàng câu hỏi thi bằng lái xe Việt Nam
 
-export type LicenseType = 'A1' | 'B2';
+export type LicenseType = 'A1' | 'A2' | 'A3' | 'A4' | 'B1' | 'B2' | 'C' | 'D' | 'E' | 'F';
 
 export interface Question {
   id: number;
@@ -26,10 +26,58 @@ export const examConfigs: Record<LicenseType, ExamConfig> = {
     timeLimit: 19,
     maxCriticalErrors: 1,
   },
+  A2: {
+    totalQuestions: 25,
+    passingScore: 21,
+    timeLimit: 19,
+    maxCriticalErrors: 1,
+  },
+  A3: {
+    totalQuestions: 25,
+    passingScore: 21,
+    timeLimit: 19,
+    maxCriticalErrors: 1,
+  },
+  A4: {
+    totalQuestions: 25,
+    passingScore: 21,
+    timeLimit: 19,
+    maxCriticalErrors: 1,
+  },
+  B1: {
+    totalQuestions: 35,
+    passingScore: 32,
+    timeLimit: 22,
+    maxCriticalErrors: 1,
+  },
   B2: {
     totalQuestions: 35,
     passingScore: 32,
     timeLimit: 22,
+    maxCriticalErrors: 1,
+  },
+  C: {
+    totalQuestions: 40,
+    passingScore: 36,
+    timeLimit: 25,
+    maxCriticalErrors: 1,
+  },
+  D: {
+    totalQuestions: 45,
+    passingScore: 41,
+    timeLimit: 30,
+    maxCriticalErrors: 1,
+  },
+  E: {
+    totalQuestions: 45,
+    passingScore: 41,
+    timeLimit: 30,
+    maxCriticalErrors: 1,
+  },
+  F: {
+    totalQuestions: 40,
+    passingScore: 36,
+    timeLimit: 25,
     maxCriticalErrors: 1,
   },
 };
@@ -575,11 +623,33 @@ export const questionsB2: Question[] = [
   },
 ];
 
-export function getRandomQuestions(licenseType: LicenseType): Question[] {
-  const allQuestions = licenseType === 'A1' ? questionsA1 : questionsB2;
+export function getRandomQuestions(licenseType: LicenseType, examSet?: string): Question[] {
+  // Sử dụng câu hỏi A1 cho tất cả loại xe mô tô (A1-A4)
+  // Sử dụng câu hỏi B2 cho tất cả loại xe ô tô (B1, B2, C, D, E, F)
+  const allQuestions = ['A1', 'A2', 'A3', 'A4'].includes(licenseType) 
+    ? questionsA1 
+    : questionsB2;
   const config = examConfigs[licenseType];
   
-  // Shuffle và lấy số câu hỏi theo cấu hình
+  // Nếu chọn đề cố định (1-20), dùng seed để tạo đề cố định
+  if (examSet && examSet !== 'random') {
+    const seed = parseInt(examSet);
+    // Sử dụng seed để tạo đề cố định
+    const seededRandom = (s: number) => {
+      const x = Math.sin(s) * 10000;
+      return x - Math.floor(x);
+    };
+    
+    const shuffled = [...allQuestions].sort((a, b) => {
+      const hashA = (a.id + seed * 1000) % 1000;
+      const hashB = (b.id + seed * 1000) % 1000;
+      return seededRandom(hashA) - seededRandom(hashB);
+    });
+    
+    return shuffled.slice(0, config.totalQuestions);
+  }
+  
+  // Ngẫu nhiên (mặc định)
   const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, config.totalQuestions);
 }
