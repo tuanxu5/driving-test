@@ -2,6 +2,7 @@ import type { Question } from '../data/questions';
 
 export interface SavedExamProgress {
   licenseType: string;
+  examSet: string;
   questions: Question[];
   answers: (number | null)[];
   currentQuestion: number;

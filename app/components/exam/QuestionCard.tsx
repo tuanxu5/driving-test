@@ -36,7 +36,7 @@ export function QuestionCard({
           )}
         </div>
         
-        <p className="text-sm md:text-base text-red-600 font-semibold leading-relaxed mb-2">
+        <p className="text-sm md:text-base text-slate-900 font-semibold leading-relaxed mb-2 whitespace-pre-line">
           {question.question}
         </p>
         

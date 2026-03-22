@@ -4,4 +4,5 @@ export default [
   index("routes/home.tsx"),
   route("exam/:licenseType", "routes/exam.tsx"),
   route("result", "routes/result.tsx"),
+  route("getdata", "routes/getdata.tsx"),
 ] satisfies RouteConfig;

@@ -105,7 +105,7 @@ export default function Home() {
                   <div className="flex items-start gap-3">
                     <span className="text-blue-500 font-bold text-sm">•</span>
                     <p className="text-sm text-slate-700 leading-relaxed">
-                      <span className="font-semibold">Chọn hạng GPLX:</span> Hệ thống hỗ trợ đầy đủ các hạng từ A1, A2, A3, A4 (xe mô tô) đến B1, B2, C, D, E, F (xe ô tô)
+                      <span className="font-semibold">Chọn hạng GPLX:</span> Hệ thống hỗ trợ đầy đủ các hạng từ A1, A, B1, B (xe mô tô, xe con) đến C, C1, D, D1, D2 (xe tải, xe khách) và các hạng kéo rơ moóc BE, CE, DE
                     </p>
                   </div>
                   <div className="flex items-start gap-3">

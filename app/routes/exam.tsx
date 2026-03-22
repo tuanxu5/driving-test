@@ -59,7 +59,7 @@ function LoadingSkeleton() {
 export default function Exam() {
   const { licenseType } = useParams();
   const [searchParams] = useSearchParams();
-  const examSet = searchParams.get('exam') || 'random';
+  const examSetFromUrl = searchParams.get('exam') || 'random';
   const navigate = useNavigate();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -70,6 +70,7 @@ export default function Exam() {
   const [savedProgress, setSavedProgress] = useState<ReturnType<typeof loadExamProgress>>(null);
   const [isInitialized, setIsInitialized] = useState(false);
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
+  const [examSet, setExamSet] = useState(examSetFromUrl);
 
   // Initialize exam
   useEffect(() => {
@@ -87,28 +88,30 @@ export default function Exam() {
       setIsInitialized(true);
     } else {
       // Start new exam
-      const examQuestions = getRandomQuestions(licenseType as LicenseType, examSet);
+      const examQuestions = getRandomQuestions(licenseType as LicenseType, examSetFromUrl);
       setQuestions(examQuestions);
       setAnswers(new Array(examQuestions.length).fill(null));
       setTimeLeft(examConfigs[licenseType as LicenseType].timeLimit * 60);
       setCurrentQuestion(0);
       setViewedQuestions(new Set([0]));
+      setExamSet(examSetFromUrl);
       setIsInitialized(true);
     }
-  }, [licenseType, navigate, examSet]);
+  }, [licenseType, navigate, examSetFromUrl]);
 
   const startNewExam = useCallback(() => {
     if (!licenseType) return;
     
     clearExamProgress();
-    const examQuestions = getRandomQuestions(licenseType as LicenseType, examSet);
+    const examQuestions = getRandomQuestions(licenseType as LicenseType, examSetFromUrl);
     setQuestions(examQuestions);
     setAnswers(new Array(examQuestions.length).fill(null));
     setTimeLeft(examConfigs[licenseType as LicenseType].timeLimit * 60);
     setCurrentQuestion(0);
     setViewedQuestions(new Set([0]));
     setShowContinueModal(false);
-  }, [licenseType, examSet]);
+    setExamSet(examSetFromUrl);
+  }, [licenseType, examSetFromUrl]);
 
   const continueExam = useCallback(() => {
     if (!savedProgress) return;
@@ -118,6 +121,7 @@ export default function Exam() {
     setTimeLeft(savedProgress.timeLeft);
     setCurrentQuestion(savedProgress.currentQuestion);
     setViewedQuestions(new Set(savedProgress.viewedQuestions));
+    setExamSet(savedProgress.examSet); // Use saved exam set
     setShowContinueModal(false);
   }, [savedProgress]);
 
@@ -127,6 +131,7 @@ export default function Exam() {
 
     const progress = {
       licenseType: licenseType!,
+      examSet: examSet,
       questions,
       answers,
       currentQuestion,
@@ -136,7 +141,7 @@ export default function Exam() {
     };
 
     saveExamProgress(progress);
-  }, [questions, answers, currentQuestion, timeLeft, viewedQuestions, licenseType, isInitialized, showContinueModal]);
+  }, [questions, answers, currentQuestion, timeLeft, viewedQuestions, licenseType, examSet, isInitialized, showContinueModal]);
 
   // Timer
   useEffect(() => {
