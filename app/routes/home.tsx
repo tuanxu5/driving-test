@@ -220,6 +220,37 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+
+              {/* Chú thích màu sắc */}
+              <div>
+                <h4 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                  <span className="w-8 h-8 bg-slate-500 rounded-lg flex items-center justify-center text-white text-sm">5</span>
+                  Chú thích màu sắc câu hỏi
+                </h4>
+                <div className="ml-10">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div className="flex flex-col items-center gap-2 p-3 bg-slate-50 rounded-lg">
+                      <div className="w-10 h-10 bg-green-100 rounded-md flex items-center justify-center font-bold text-green-700">1</div>
+                      <span className="text-xs text-slate-600 text-center">Đã trả lời</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2 p-3 bg-slate-50 rounded-lg">
+                      <div className="w-10 h-10 bg-amber-100 rounded-md flex items-center justify-center font-bold text-amber-700">2</div>
+                      <span className="text-xs text-slate-600 text-center">Đã xem</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2 p-3 bg-slate-50 rounded-lg">
+                      <div className="w-10 h-10 bg-slate-100 rounded-md flex items-center justify-center font-bold text-slate-600">3</div>
+                      <span className="text-xs text-slate-600 text-center">Chưa xem</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2 p-3 bg-slate-50 rounded-lg">
+                      <div className="relative w-10 h-10 bg-white border border-red-400 rounded-md flex items-center justify-center font-bold text-slate-700">
+                        4
+                        <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full"></span>
+                      </div>
+                      <span className="text-xs text-slate-600 text-center">Câu điểm liệt</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -44,7 +44,7 @@ export function QuestionNavigator({
       {/* Question Grid */}
       <div className="mb-6">
         <h3 className="font-bold text-slate-900 mb-3">Danh sách câu hỏi</h3>
-        <div className="grid grid-cols-5 gap-2">
+        <div className="grid grid-cols-9 gap-1.5">
           {questions.map((q, idx) => {
             const isAnswered = answers[idx] !== null;
             const isCurrent = currentQuestion === idx;
@@ -56,21 +56,21 @@ export function QuestionNavigator({
                 key={idx}
                 onClick={() => onQuestionSelect(idx)}
                 className={`
-                  relative aspect-square rounded-lg font-bold text-sm transition-all duration-200
+                  relative aspect-square rounded-md font-semibold text-[10px] transition-all duration-200
                   ${isCurrent 
-                    ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/40 scale-110 ring-2 ring-blue-300' 
+                    ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-md shadow-blue-500/40 scale-105 ring-2 ring-blue-300' 
                     : isAnswered
                     ? 'bg-green-100 text-green-700 hover:bg-green-200 hover:scale-105'
                     : isViewed
                     ? 'bg-amber-100 text-amber-700 hover:bg-amber-200 hover:scale-105'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:scale-105'
                   }
-                  ${isCritical && !isCurrent ? 'ring-2 ring-red-300' : ''}
+                  ${isCritical && !isCurrent ? 'ring-1 ring-red-400' : ''}
                 `}
               >
                 {idx + 1}
                 {isCritical && !isCurrent && (
-                  <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>
+                  <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-red-500 rounded-full"></span>
                 )}
               </button>
             );
@@ -78,37 +78,15 @@ export function QuestionNavigator({
         </div>
       </div>
 
-      {/* Legend */}
-      <div className="space-y-2 mb-6 p-4 bg-slate-50 rounded-xl">
-        <div className="flex items-center gap-2 text-sm">
-          <div className="w-6 h-6 bg-green-100 rounded-lg"></div>
-          <span className="text-slate-600">Đã trả lời</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <div className="w-6 h-6 bg-amber-100 rounded-lg"></div>
-          <span className="text-slate-600">Đã xem</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <div className="w-6 h-6 bg-slate-100 rounded-lg"></div>
-          <span className="text-slate-600">Chưa xem</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <div className="relative w-6 h-6 bg-white border-2 border-red-300 rounded-lg">
-            <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </div>
-          <span className="text-slate-600">Câu điểm liệt</span>
-        </div>
-      </div>
-
       {/* Submit Button */}
       <Button 
         variant="success" 
-        size="lg" 
+        size="md"
         fullWidth
         onClick={onFinish}
-        className="font-bold"
+        className="font-bold md:text-base"
       >
-        <FileCheck className="w-5 h-5 mr-2" />
+        <FileCheck className="w-4 h-4 md:w-5 md:h-5 mr-2" />
         Nộp bài
       </Button>
       

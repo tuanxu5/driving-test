@@ -34,7 +34,7 @@ function LoadingSkeleton() {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-4 gap-6">
+        <div className="grid lg:grid-cols-4 gap-4">
           <div className="lg:col-span-3">
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <Skeleton width="100%" height={200} className="mb-6" />
@@ -245,10 +245,11 @@ export default function Exam() {
           totalQuestions={questions.length}
           answeredCount={answeredCount}
           timeLeft={timeLeft}
+          examSet={examSet}
         />
 
-        <div className="grid lg:grid-cols-4 gap-6">
-          <div className="lg:col-span-3 space-y-6">
+        <div className="grid lg:grid-cols-4 gap-4">
+          <div className="lg:col-span-3 space-y-4">
             <QuestionCard
               question={question}
               questionNumber={currentQuestion + 1}
@@ -256,34 +257,61 @@ export default function Exam() {
               onSelectAnswer={handleAnswer}
             />
 
-            <div className="flex justify-between items-center">
+            {/* Navigation and Answer Selection */}
+            <div className="flex justify-between items-center gap-2">
               <Button
                 onClick={handlePrevious}
                 disabled={currentQuestion === 0}
-                variant="secondary"
-                size="lg"
+                variant="primary"
+                size="md"
+                className="flex-shrink-0 bg-slate-600 hover:bg-slate-700 border-slate-600"
               >
-                <ChevronLeft className="w-5 h-5 mr-1" />
-                Câu trước
+                <ChevronLeft className="w-4 h-4 sm:mr-1" />
+                <span className="hidden sm:inline text-sm">Câu trước</span>
               </Button>
+
+              {/* Answer Selection in the middle */}
+              <div className="flex items-center gap-1.5 flex-1 justify-center">
+                <span className="text-xs text-slate-600 hidden sm:inline mr-1">Chọn:</span>
+                {question.options.map((_, idx) => {
+                  const isSelected = answers[currentQuestion] === idx;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => handleAnswer(idx)}
+                      className={`
+                        w-9 h-9 rounded-lg font-bold text-sm transition-all
+                        ${isSelected
+                          ? 'bg-blue-500 text-white border-2 border-blue-600 shadow-md scale-105'
+                          : 'bg-white text-slate-700 border-2 border-slate-300 hover:border-blue-400 hover:bg-blue-50'
+                        }
+                      `}
+                    >
+                      {idx + 1}
+                    </button>
+                  );
+                })}
+              </div>
 
               {currentQuestion < questions.length - 1 ? (
                 <Button
                   onClick={handleNext}
                   variant="primary"
-                  size="lg"
+                  size="md"
+                  className="flex-shrink-0"
                 >
-                  Câu sau
-                  <ChevronRight className="w-5 h-5 ml-1" />
+                  <span className="hidden sm:inline text-sm">Câu sau</span>
+                  <ChevronRight className="w-4 h-4 sm:ml-1" />
                 </Button>
               ) : (
                 <Button
                   onClick={handleFinish}
                   variant="success"
-                  size="lg"
+                  size="md"
+                  className="flex-shrink-0"
                 >
-                  <FileCheck className="w-5 h-5 mr-2" />
-                  Nộp bài
+                  <FileCheck className="w-4 h-4 sm:mr-1" />
+                  <span className="hidden sm:inline text-sm">Nộp bài</span>
                 </Button>
               )}
             </div>

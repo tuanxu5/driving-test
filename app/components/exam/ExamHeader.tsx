@@ -1,5 +1,4 @@
 import { Card } from '../ui/Card';
-import { Badge } from '../ui/Badge';
 import { Clock, AlertCircle } from 'lucide-react';
 
 interface ExamHeaderProps {
@@ -8,6 +7,7 @@ interface ExamHeaderProps {
   totalQuestions: number;
   answeredCount: number;
   timeLeft: number;
+  examSet?: string;
 }
 
 export function ExamHeader({
@@ -16,6 +16,7 @@ export function ExamHeader({
   totalQuestions,
   answeredCount,
   timeLeft,
+  examSet,
 }: ExamHeaderProps) {
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
@@ -23,51 +24,38 @@ export function ExamHeader({
   const isCriticalTime = timeLeft < 30;
   
   return (
-    <Card variant="elevated" padding="lg" className="mb-6">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <Card variant="elevated" padding="lg" className="mb-4">
+      <div className="flex items-center justify-between gap-4">
         {/* Left Section */}
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
-            Đề Thi Bằng {licenseType}
+          <h1 className="text-xl md:text-2xl font-bold text-slate-900 mb-1">
+            {examSet && examSet !== 'random' ? `Đề số ${examSet}` : 'Đề ngẫu nhiên'} - Hạng {licenseType}
           </h1>
-          <p className="text-slate-600">
+          <p className="text-sm md:text-base text-slate-600">
             Câu <span className="font-semibold text-blue-600">{currentQuestion + 1}</span> / {totalQuestions}
           </p>
         </div>
 
-        {/* Right Section - Stats */}
-        <div className="flex gap-4">
-          {/* Answered Count */}
-          <div className="flex flex-col items-center px-6 py-3 bg-blue-50 rounded-xl border-2 border-blue-200">
-            <span className="text-sm text-blue-600 font-medium mb-1">Đã làm</span>
-            <span className="text-2xl font-bold text-blue-700">
-              {answeredCount}<span className="text-lg text-blue-500">/{totalQuestions}</span>
-            </span>
-          </div>
-
-          {/* Timer */}
-          <div className={`
-            flex flex-col items-center px-6 py-3 rounded-xl border-2 transition-all duration-300
-            ${isCriticalTime 
-              ? 'bg-red-50 border-red-500 animate-pulse' 
-              : isLowTime 
-              ? 'bg-amber-50 border-amber-400' 
-              : 'bg-green-50 border-green-200'
-            }
+        {/* Right Section - Timer */}
+        <div className={`
+          flex items-center gap-1 px-2 py-1 rounded-md border transition-all duration-300
+          ${isCriticalTime 
+            ? 'bg-red-50 border-red-500 animate-pulse' 
+            : isLowTime 
+            ? 'bg-amber-50 border-amber-400' 
+            : 'bg-green-50 border-green-200'
+          }
+        `}>
+          <Clock className={`
+            w-3.5 h-3.5 flex-shrink-0
+            ${isCriticalTime ? 'text-red-600' : isLowTime ? 'text-amber-600' : 'text-green-600'}
+          `} />
+          <span className={`
+            text-sm md:text-base font-bold tabular-nums
+            ${isCriticalTime ? 'text-red-700' : isLowTime ? 'text-amber-700' : 'text-green-700'}
           `}>
-            <span className={`
-              text-sm font-medium mb-1
-              ${isCriticalTime ? 'text-red-600' : isLowTime ? 'text-amber-600' : 'text-green-600'}
-            `}>
-              Thời gian
-            </span>
-            <span className={`
-              text-2xl font-bold tabular-nums
-              ${isCriticalTime ? 'text-red-700' : isLowTime ? 'text-amber-700' : 'text-green-700'}
-            `}>
-              {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
-            </span>
-          </div>
+            {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
+          </span>
         </div>
       </div>
 
