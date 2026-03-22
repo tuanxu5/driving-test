@@ -1,5 +1,6 @@
 import { Card } from '../ui/Card';
-import { Clock, AlertCircle } from 'lucide-react';
+import { Clock, AlertCircle, Home } from 'lucide-react';
+import { Link } from 'react-router';
 
 interface ExamHeaderProps {
   licenseType: string;
@@ -8,6 +9,7 @@ interface ExamHeaderProps {
   answeredCount: number;
   timeLeft: number;
   examSet?: string;
+  onExitClick?: () => void;
 }
 
 export function ExamHeader({
@@ -17,6 +19,7 @@ export function ExamHeader({
   answeredCount,
   timeLeft,
   examSet,
+  onExitClick,
 }: ExamHeaderProps) {
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
@@ -27,13 +30,22 @@ export function ExamHeader({
     <Card variant="elevated" padding="lg" className="mb-4">
       <div className="flex items-center justify-between gap-4">
         {/* Left Section */}
-        <div>
-          <h1 className="text-xl md:text-2xl font-bold text-slate-900 mb-1">
-            {examSet && examSet !== 'random' ? `Đề số ${examSet}` : 'Đề ngẫu nhiên'} - Hạng {licenseType}
-          </h1>
-          <p className="text-sm md:text-base text-slate-600">
-            Câu <span className="font-semibold text-blue-600">{currentQuestion + 1}</span> / {totalQuestions}
-          </p>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={onExitClick}
+            className="flex-shrink-0 w-8 h-8 md:w-9 md:h-9 flex items-center justify-center rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors"
+            title="Về trang chủ"
+          >
+            <Home className="w-4 h-4 md:w-5 md:h-5" />
+          </button>
+          <div>
+            <h1 className="text-base md:text-2xl font-bold text-slate-900 mb-0.5 md:mb-1">
+              {examSet && examSet !== 'random' ? `Đề số ${examSet}` : 'Đề ngẫu nhiên'} - Hạng {licenseType}
+            </h1>
+            <p className="text-xs md:text-base text-slate-600">
+              Câu <span className="font-semibold text-blue-600">{currentQuestion + 1}</span> / {totalQuestions}
+            </p>
+          </div>
         </div>
 
         {/* Right Section - Timer */}

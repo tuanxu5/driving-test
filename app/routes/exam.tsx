@@ -69,6 +69,7 @@ export default function Exam() {
   const [showContinueModal, setShowContinueModal] = useState(false);
   const [savedProgress, setSavedProgress] = useState<ReturnType<typeof loadExamProgress>>(null);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
 
   // Initialize exam
   useEffect(() => {
@@ -158,10 +159,69 @@ export default function Exam() {
     }
   }, [timeLeft, questions.length, showContinueModal]);
 
+  // Prevent accidental page close/reload
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (questions.length > 0 && !showContinueModal) {
+        e.preventDefault();
+        e.returnValue = '';
+        return '';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [questions.length, showContinueModal]);
+
+  // Handle browser back button
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      if (questions.length > 0 && !showContinueModal) {
+        e.preventDefault();
+        const confirmExit = window.confirm('Bạn có chắc muốn thoát? Bài thi sẽ không được lưu lại.');
+        if (confirmExit) {
+          clearExamProgress();
+          navigate('/');
+        } else {
+          // Push state back to prevent navigation
+          window.history.pushState(null, '', window.location.pathname);
+        }
+      }
+    };
+
+    // Push initial state to enable back button detection
+    window.history.pushState(null, '', window.location.pathname);
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [questions.length, showContinueModal, navigate]);
+
+  // Clear progress on unmount (when leaving exam page by any other means)
+  useEffect(() => {
+    return () => {
+      // Only clear if not in continue modal (which means we're actually leaving the exam)
+      if (!showContinueModal && questions.length > 0) {
+        clearExamProgress();
+      }
+    };
+  }, [showContinueModal, questions.length]);
+
   const handleAnswer = (answerIndex: number) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = answerIndex;
     setAnswers(newAnswers);
+  };
+
+  const handleFinishClick = () => {
+    const unansweredCount = answers.filter(a => a === null).length;
+    
+    if (unansweredCount > 0) {
+      setShowSubmitConfirm(true);
+    } else {
+      handleFinish();
+    }
   };
 
   const handleFinish = useCallback(() => {
@@ -213,6 +273,20 @@ export default function Exam() {
     setViewedQuestions(prev => new Set([...prev, index]));
   };
 
+  const handleExitClick = () => {
+    const unansweredCount = answers.filter(a => a === null).length;
+    
+    if (unansweredCount > 0 || answeredCount > 0) {
+      if (window.confirm('Bạn có chắc muốn thoát? Bài thi sẽ không được lưu lại.')) {
+        clearExamProgress();
+        navigate('/');
+      }
+    } else {
+      clearExamProgress();
+      navigate('/');
+    }
+  };
+
   if (!isInitialized || (questions.length === 0 && !showContinueModal)) {
     return <LoadingSkeleton />;
   }
@@ -246,6 +320,7 @@ export default function Exam() {
           answeredCount={answeredCount}
           timeLeft={timeLeft}
           examSet={examSet}
+          onExitClick={handleExitClick}
         />
 
         <div className="grid lg:grid-cols-4 gap-4">
@@ -305,7 +380,7 @@ export default function Exam() {
                 </Button>
               ) : (
                 <Button
-                  onClick={handleFinish}
+                  onClick={handleFinishClick}
                   variant="success"
                   size="md"
                   className="flex-shrink-0"
@@ -324,10 +399,52 @@ export default function Exam() {
               answers={answers}
               viewedQuestions={viewedQuestions}
               onQuestionSelect={handleQuestionSelect}
-              onFinish={handleFinish}
+              onFinish={handleFinishClick}
             />
           </div>
         </div>
+
+        {/* Submit Confirmation Modal */}
+        {showSubmitConfirm && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fadeIn">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 animate-slideUp">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FileCheck className="w-8 h-8 text-amber-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">
+                  Xác nhận nộp bài
+                </h3>
+                <p className="text-slate-600">
+                  Bạn còn <span className="font-bold text-amber-600">{answers.filter(a => a === null).length} câu</span> chưa trả lời.
+                </p>
+                <p className="text-sm text-slate-500 mt-2">
+                  Bạn có chắc chắn muốn nộp bài không?
+                </p>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  variant="secondary"
+                  fullWidth
+                  onClick={() => setShowSubmitConfirm(false)}
+                >
+                  Tiếp tục làm
+                </Button>
+                <Button
+                  variant="primary"
+                  fullWidth
+                  onClick={() => {
+                    setShowSubmitConfirm(false);
+                    handleFinish();
+                  }}
+                >
+                  Nộp bài ngay
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
