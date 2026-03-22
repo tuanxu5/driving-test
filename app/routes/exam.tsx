@@ -19,7 +19,7 @@ export function meta({ params }: Route.MetaArgs) {
 
 function LoadingSkeleton() {
   return (
-    <div className="min-h-screen py-6 px-4">
+    <div className="min-h-screen py-4 md:py-6 px-4">
       <div className="container mx-auto max-w-7xl">
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
           <div className="flex justify-between items-center">
@@ -237,7 +237,7 @@ export default function Exam() {
   const answeredCount = answers.filter(a => a !== null).length;
 
   return (
-    <div className="min-h-screen py-6 px-4">
+    <div className="min-h-screen py-4 md:py-6 px-4">
       <div className="container mx-auto max-w-7xl">
         <ExamHeader
           licenseType={licenseType!}

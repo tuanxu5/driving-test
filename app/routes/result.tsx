@@ -47,7 +47,7 @@ export default function Result() {
   const criticalWrong = wrongAnswers.filter(q => q.isCritical);
 
   return (
-    <div className="min-h-screen py-12 px-4">
+    <div className="min-h-screen py-5 md:py-12 px-4">
       <div className="container mx-auto max-w-5xl">
         {/* Result Header */}
         <div className="mb-8 animate-fadeIn">
