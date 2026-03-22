@@ -24,7 +24,7 @@ export function QuestionCard({
     <Card variant="elevated" padding="lg" className="animate-fadeIn">
       {/* Question Header */}
       <div className="mb-0">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-2">
           <h3 className="text-lg font-bold text-slate-900">
             Câu {questionNumber}:
           </h3>
@@ -36,7 +36,7 @@ export function QuestionCard({
           )}
         </div>
         
-        <p className="text-base text-red-600 font-semibold leading-relaxed mb-2">
+        <p className="text-sm md:text-base text-red-600 font-semibold leading-relaxed mb-2">
           {question.question}
         </p>
         
@@ -64,10 +64,10 @@ export function QuestionCard({
               key={idx}
               className="flex items-start gap-2"
             >
-              <span className="font-semibold text-slate-700 flex-shrink-0">
+              <span className="font-semibold text-slate-700 flex-shrink-0 text-sm md:text-base">
                 {idx + 1}.
               </span>
-              <span className={`flex-1 ${
+              <span className={`flex-1 text-sm md:text-base ${
                 showResult && isCorrect 
                   ? 'text-green-600 font-semibold' 
                   : showResult && isUserAnswer && !isCorrect

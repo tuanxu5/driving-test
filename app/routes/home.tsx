@@ -27,34 +27,34 @@ export default function Home() {
         </div>
 
         <div className="relative container mx-auto px-4 py-10 md:py-32">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-block mb-6 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
-              <span className="text-sm font-semibold">🇻🇳 Chuẩn theo quy định Việt Nam</span>
-            </div>
+          <div className="max-w-4xl mx-auto text-center lg:pb-10">
+            {/* <div className="inline-block mb-4 md:mb-6 px-3 py-1.5 md:px-4 md:py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+              <span className="text-xs md:text-sm font-semibold">🇻🇳 Chuẩn theo quy định Việt Nam</span>
+            </div> */}
             
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight animate-fadeIn">
+            <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight animate-fadeIn">
               Thi Thử Bằng Lái Xe
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">
                 Trực Tuyến
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed animate-fadeIn">
+            <p className="text-base md:text-xl lg:text-2xl text-slate-300 mb-6 md:mb-12 leading-relaxed animate-fadeIn">
               Luyện thi tất cả hạng bằng lái xe với đề thi chuẩn, chấm điểm tự động
               và giải thích chi tiết. Hoàn toàn miễn phí!
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fadeIn">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center animate-fadeIn">
               <button
                 onClick={() => scrollToSection('exam-selector')}
-                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-500/50 hover:shadow-xl hover:shadow-blue-500/60 transition-all duration-300 hover:scale-105"
+                className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-500/50 hover:shadow-xl hover:shadow-blue-500/60 transition-all duration-300 hover:scale-105 text-sm md:text-base"
               >
                 Bắt đầu ngay
                 <span className="ml-2">→</span>
               </button>
               <button
                 onClick={() => scrollToSection('instructions')}
-                className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-bold rounded-xl border-2 border-white/20 transition-all duration-300"
+                className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-bold rounded-xl border-2 border-white/20 transition-all duration-300 text-sm md:text-base"
               >
                 Tìm hiểu thêm
               </button>
@@ -63,21 +63,21 @@ export default function Home() {
         </div>
 
         {/* Wave separator */}
-        <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
+        <div className="absolute bottom-0 left-0 right-0 pointer-events-none -mb-1">
+          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto" preserveAspectRatio="none">
             <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#f8fafc"/>
           </svg>
         </div>
       </section>
 
       {/* Exam Selector Section */}
-      <section id="exam-selector" className="py-10 md:py-20 px-4">
+      <section id="exam-selector" className="py-8 md:py-16 lg:py-20 px-4">
         <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-10 md:mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+          <div className="text-center mb-8 md:mb-10 lg:mb-12">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-2 md:mb-4">
               Chọn loại bằng lái
             </h2>
-            <p className="text-xl text-slate-600">
+            <p className="text-sm md:text-xl text-slate-600">
               Chọn hạng bằng bạn muốn thi thử và bắt đầu ngay
             </p>
           </div>
@@ -87,36 +87,36 @@ export default function Home() {
       </section>
 
       {/* Instructions Section */}
-      <section id="instructions" className="py-10 md:py-20 px-4">
+      <section id="instructions" className="py-8 md:py-16 lg:py-20 px-4">
         <div className="container mx-auto max-w-4xl">
-          <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 p-5 md:p-12">
+          <div className="bg-white rounded-2xl md:rounded-3xl shadow-xl shadow-slate-200/50 p-4 md:p-8 lg:p-12">
             <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6 md:mb-8 text-center">
               📋 Hướng dẫn thi
             </h3>
             
-            <div className="space-y-7 md:space-y-8">
+            <div className="space-y-6 md:space-y-7 lg:space-y-8">
               {/* Bắt đầu thi */}
               <div>
-                <h4 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                  <span className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white text-sm">1</span>
+                <h4 className="text-lg md:text-xl font-bold text-slate-900 mb-3 md:mb-4 flex items-center gap-2">
+                  <span className="w-7 h-7 md:w-8 md:h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white text-xs md:text-sm">1</span>
                   Bắt đầu thi thử
                 </h4>
-                <div className="space-y-3 ml-10">
+                <div className="space-y-2 md:space-y-3 ml-9 md:ml-10">
                   <div className="flex items-start gap-3">
-                    <span className="text-blue-500 font-bold">•</span>
-                    <p className="text-slate-700 leading-relaxed">
+                    <span className="text-blue-500 font-bold text-sm">•</span>
+                    <p className="text-sm text-slate-700 leading-relaxed">
                       <span className="font-semibold">Chọn hạng GPLX:</span> Hệ thống hỗ trợ đầy đủ các hạng từ A1, A2, A3, A4 (xe mô tô) đến B1, B2, C, D, E, F (xe ô tô)
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-blue-500 font-bold">•</span>
-                    <p className="text-slate-700 leading-relaxed">
+                    <span className="text-blue-500 font-bold text-sm">•</span>
+                    <p className="text-sm text-slate-700 leading-relaxed">
                       <span className="font-semibold">Chọn đề thi:</span> Có 2 dạng - <span className="font-semibold text-purple-600">Ngẫu nhiên</span> (giống thi thật) hoặc <span className="font-semibold text-blue-600">Đề cố định 1-20</span> (ôn tập từng đề)
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-blue-500 font-bold">•</span>
-                    <p className="text-slate-700 leading-relaxed">
+                    <span className="text-blue-500 font-bold text-sm">•</span>
+                    <p className="text-sm text-slate-700 leading-relaxed">
                       Nhấn <span className="font-semibold">"Bắt đầu thi ngay"</span> để vào phòng thi
                     </p>
                   </div>
@@ -131,26 +131,26 @@ export default function Home() {
                 </h4>
                 <div className="space-y-3 ml-10">
                   <div className="flex items-start gap-3">
-                    <span className="text-green-500 font-bold">•</span>
-                    <p className="text-slate-700 leading-relaxed">
+                    <span className="text-green-500 font-bold text-sm">•</span>
+                    <p className="text-sm text-slate-700 leading-relaxed">
                       <span className="font-semibold">Di chuyển câu hỏi:</span> Dùng nút "Câu trước/Câu sau" hoặc click vào số câu bên phải
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-green-500 font-bold">•</span>
-                    <p className="text-slate-700 leading-relaxed">
+                    <span className="text-green-500 font-bold text-sm">•</span>
+                    <p className="text-sm text-slate-700 leading-relaxed">
                       <span className="font-semibold">Chọn đáp án:</span> Click vào đáp án muốn chọn, có thể đổi đáp án bất cứ lúc nào
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-green-500 font-bold">•</span>
-                    <p className="text-slate-700 leading-relaxed">
+                    <span className="text-green-500 font-bold text-sm">•</span>
+                    <p className="text-sm text-slate-700 leading-relaxed">
                       <span className="font-semibold">Theo dõi tiến độ:</span> Xem số câu đã trả lời và thời gian còn lại ở phía trên
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-green-500 font-bold">•</span>
-                    <p className="text-slate-700 leading-relaxed">
+                    <span className="text-green-500 font-bold text-sm">•</span>
+                    <p className="text-sm text-slate-700 leading-relaxed">
                       <span className="font-semibold">Nộp bài:</span> Nhấn "Nộp bài" khi hoàn thành hoặc hết giờ sẽ tự động nộp
                     </p>
                   </div>
@@ -165,8 +165,8 @@ export default function Home() {
                 </h4>
                 <div className="space-y-3 ml-10">
                   <div className="bg-amber-50 border-2 border-amber-200 rounded-xl p-4">
-                    <p className="text-amber-900 font-semibold mb-2">⚠️ Lưu ý quan trọng về câu điểm liệt:</p>
-                    <p className="text-amber-800 leading-relaxed">
+                    <p className="text-sm text-amber-900 font-semibold mb-2">⚠️ Lưu ý quan trọng về câu điểm liệt:</p>
+                    <p className="text-sm text-amber-800 leading-relaxed">
                       Sai <span className="font-bold">quá 1 câu điểm liệt</span> sẽ <span className="font-bold">KHÔNG ĐẠT</span>, bất kể số câu đúng là bao nhiêu!
                     </p>
                   </div>

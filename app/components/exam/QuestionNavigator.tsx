@@ -44,7 +44,7 @@ export function QuestionNavigator({
       {/* Question Grid */}
       <div className="mb-6">
         <h3 className="font-bold text-slate-900 mb-3">Danh sách câu hỏi</h3>
-        <div className="grid grid-cols-9 gap-1.5">
+        <div className="grid grid-cols-9 sm:grid-cols-6 lg:grid-cols-5 gap-1.5">
           {questions.map((q, idx) => {
             const isAnswered = answers[idx] !== null;
             const isCurrent = currentQuestion === idx;

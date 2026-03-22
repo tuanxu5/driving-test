@@ -8,16 +8,16 @@ interface ResultActionsProps {
 
 export function ResultActions({ licenseType }: ResultActionsProps) {
   return (
-    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-      <Link to={`/exam/${licenseType}`}>
-        <Button variant="primary" size="lg" className="min-w-[200px]">
-          <RotateCcw className="w-5 h-5 mr-2" />
+    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+      <Link to={`/exam/${licenseType}`} className="flex-1 sm:flex-initial">
+        <Button variant="primary" size="md" className="w-full sm:min-w-[180px]">
+          <RotateCcw className="w-4 h-4 mr-2" />
           Thi lại
         </Button>
       </Link>
-      <Link to="/">
-        <Button variant="secondary" size="lg" className="min-w-[200px]">
-          <Home className="w-5 h-5 mr-2" />
+      <Link to="/" className="flex-1 sm:flex-initial">
+        <Button variant="secondary" size="md" className="w-full sm:min-w-[180px]">
+          <Home className="w-4 h-4 mr-2" />
           Về trang chủ
         </Button>
       </Link>

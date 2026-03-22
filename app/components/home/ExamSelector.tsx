@@ -62,8 +62,8 @@ export function ExamSelector() {
   }, {} as Record<string, typeof licenseOptions>);
 
   return (
-    <Card variant="elevated" padding="lg" className="max-w-2xl mx-auto">
-      <div className="space-y-6">
+    <Card variant="elevated" padding="md" className="max-w-2xl mx-auto">
+      <div className="space-y-4 md:space-y-6">
         {/* Custom Dropdown */}
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-2">
@@ -74,23 +74,23 @@ export function ExamSelector() {
             <button
               onClick={() => setIsLicenseOpen(!isLicenseOpen)}
               className={`
-                w-full px-4 py-3 text-left text-lg font-medium bg-white border-2 rounded-xl 
+                w-full px-3 py-2.5 md:px-4 md:py-3 text-left text-base md:text-lg font-medium bg-white border-2 rounded-xl 
                 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all 
                 flex items-center justify-between
                 ${selectedLicense ? 'border-slate-200 hover:border-slate-300' : 'border-slate-300 hover:border-slate-400'}
               `}
             >
               {selectedLicense ? (
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <SelectedIcon className="w-5 h-5 text-blue-600" />
+                <div className="flex items-center gap-2 md:gap-3">
+                  <div className="w-7 h-7 md:w-8 md:h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <SelectedIcon className="w-4 h-4 md:w-5 md:h-5 text-blue-600" />
                   </div>
                   <span className="text-slate-900">{selectedOption?.label}</span>
                 </div>
               ) : (
                 <span className="text-slate-500">Chọn hạng bằng lái...</span>
               )}
-              <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${isLicenseOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`w-4 h-4 md:w-5 md:h-5 text-slate-400 transition-transform ${isLicenseOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {/* Dropdown Menu */}
@@ -162,30 +162,30 @@ export function ExamSelector() {
               <button
                 onClick={() => setIsExamOpen(!isExamOpen)}
                 className={`
-                  w-full px-4 py-3 text-left text-lg font-medium bg-white border-2 rounded-xl 
+                  w-full px-3 py-2.5 md:px-4 md:py-3 text-left text-base md:text-lg font-medium bg-white border-2 rounded-xl 
                   focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all 
                   flex items-center justify-between
                   border-slate-200 hover:border-slate-300
                 `}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 md:gap-3">
                   {selectedExam === 'random' ? (
                     <>
-                      <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <Shuffle className="w-5 h-5 text-purple-600" />
+                      <div className="w-7 h-7 md:w-8 md:h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <Shuffle className="w-4 h-4 md:w-5 md:h-5 text-purple-600" />
                       </div>
                       <span className="text-slate-900">Ngẫu nhiên</span>
                     </>
                   ) : (
                     <>
-                      <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <FileText className="w-5 h-5 text-blue-600" />
+                      <div className="w-7 h-7 md:w-8 md:h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <FileText className="w-4 h-4 md:w-5 md:h-5 text-blue-600" />
                       </div>
                       <span className="text-slate-900">Đề {selectedExam}</span>
                     </>
                   )}
                 </div>
-                <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${isExamOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-4 h-4 md:w-5 md:h-5 text-slate-400 transition-transform ${isExamOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {/* Dropdown Menu */}
@@ -260,34 +260,34 @@ export function ExamSelector() {
 
         {/* License Info - Only show when selected */}
         {selectedLicense && (
-          <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border-2 border-blue-100 animate-fadeIn">
-            <div className="flex items-start gap-4 mb-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
-                <SelectedIcon className="w-6 h-6" />
+          <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-3 md:p-6 border-2 border-blue-100 animate-fadeIn">
+            <div className="flex items-start gap-2 md:gap-4 mb-3 md:mb-4">
+              <div className="flex-shrink-0 w-9 h-9 md:w-12 md:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+                <SelectedIcon className="w-5 h-5 md:w-6 md:h-6" />
               </div>
               <div className="flex-1">
-                <h3 className="text-xl font-bold text-slate-900 mb-2">
+                <h3 className="text-base md:text-xl font-bold text-slate-900 mb-1 md:mb-2">
                   Bằng {selectedLicense}
                 </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
+                <p className="text-xs md:text-sm text-slate-600 leading-relaxed">
                   {descriptions[selectedLicense]}
                 </p>
               </div>
             </div>
 
             {/* Exam Stats */}
-            <div className="grid grid-cols-3 gap-4 mt-4">
-              <div className="text-center p-3 bg-white rounded-lg">
-                <div className="text-2xl font-bold text-slate-900">{examConfigs[selectedLicense].totalQuestions}</div>
-                <div className="text-xs text-slate-500 mt-1">Câu hỏi</div>
+            <div className="grid grid-cols-3 gap-2 md:gap-4 mt-3 md:mt-4">
+              <div className="text-center p-2 md:p-3 bg-white rounded-lg">
+                <div className="text-lg md:text-2xl font-bold text-slate-900">{examConfigs[selectedLicense].totalQuestions}</div>
+                <div className="text-xs text-slate-500 mt-0.5 md:mt-1">Câu hỏi</div>
               </div>
-              <div className="text-center p-3 bg-white rounded-lg">
-                <div className="text-2xl font-bold text-slate-900">{examConfigs[selectedLicense].timeLimit}</div>
-                <div className="text-xs text-slate-500 mt-1">Phút</div>
+              <div className="text-center p-2 md:p-3 bg-white rounded-lg">
+                <div className="text-lg md:text-2xl font-bold text-slate-900">{examConfigs[selectedLicense].timeLimit}</div>
+                <div className="text-xs text-slate-500 mt-0.5 md:mt-1">Phút</div>
               </div>
-              <div className="text-center p-3 bg-white rounded-lg">
-                <div className="text-2xl font-bold text-slate-900">{examConfigs[selectedLicense].passingScore}/{examConfigs[selectedLicense].totalQuestions}</div>
-                <div className="text-xs text-slate-500 mt-1">Điểm đạt</div>
+              <div className="text-center p-2 md:p-3 bg-white rounded-lg">
+                <div className="text-lg md:text-2xl font-bold text-slate-900">{examConfigs[selectedLicense].passingScore}/{examConfigs[selectedLicense].totalQuestions}</div>
+                <div className="text-xs text-slate-500 mt-0.5 md:mt-1">Điểm đạt</div>
               </div>
             </div>
           </div>
@@ -296,11 +296,11 @@ export function ExamSelector() {
         {/* Start Button */}
         <Button
           variant="primary"
-          size="lg"
+          size="md"
           fullWidth
           onClick={handleStartExam}
           disabled={!selectedLicense}
-          className="text-lg font-bold"
+          className="text-base md:text-lg font-bold md:py-3"
         >
           {selectedLicense ? (
             <>
@@ -314,14 +314,14 @@ export function ExamSelector() {
 
         {/* Note */}
         {selectedLicense && (
-          <div className="bg-amber-50 border-2 border-amber-200 rounded-xl p-4 animate-fadeIn">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
-                <Lightbulb className="w-5 h-5 text-amber-600" />
+          <div className="bg-amber-50 border-2 border-amber-200 rounded-xl p-3 md:p-4 animate-fadeIn">
+            <div className="flex items-start gap-2 md:gap-3">
+              <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 bg-amber-100 rounded-lg flex items-center justify-center">
+                <Lightbulb className="w-4 h-4 md:w-5 md:h-5 text-amber-600" />
               </div>
               <div className="flex-1">
-                <h4 className="text-sm font-semibold text-amber-900 mb-1">Lưu ý quan trọng</h4>
-                <p className="text-sm text-amber-700 leading-relaxed">
+                <h4 className="text-xs md:text-sm font-semibold text-amber-900 mb-0.5 md:mb-1">Lưu ý quan trọng</h4>
+                <p className="text-xs md:text-sm text-amber-700 leading-relaxed">
                   Sai quá <span className="font-bold">1 câu điểm liệt</span> sẽ không đạt, bất kể số câu đúng là bao nhiêu.
                 </p>
               </div>
