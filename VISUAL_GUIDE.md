@@ -1,0 +1,392 @@
+# 🎨 Visual Design Guide
+
+## Color Palette
+
+### Primary Colors
+```
+Blue 500: #3b82f6  ████████  Main actions, links
+Blue 600: #2563eb  ████████  Hover states
+Blue 700: #1d4ed8  ████████  Active states
+```
+
+### Semantic Colors
+```
+Green 500: #22c55e  ████████  Success, correct answers
+Green 600: #16a34a  ████████  Success hover
+Red 500:   #ef4444  ████████  Error, wrong answers
+Red 600:   #dc2626  ████████  Error hover
+Amber 500: #f59e0b  ████████  Warning, low time
+Amber 600: #d97706  ████████  Warning hover
+```
+
+### Neutral Colors
+```
+Slate 50:  #f8fafc  ████████  Background
+Slate 100: #f1f5f9  ████████  Secondary background
+Slate 200: #e2e8f0  ████████  Borders
+Slate 600: #475569  ████████  Secondary text
+Slate 900: #0f172a  ████████  Primary text
+```
+
+---
+
+## Typography Scale
+
+```
+Hero:     64px / 4rem    font-bold
+H1:       48px / 3rem    font-bold
+H2:       32px / 2rem    font-bold
+H3:       24px / 1.5rem  font-bold
+Body:     16px / 1rem    font-normal
+Small:    14px / 0.875rem font-normal
+Tiny:     12px / 0.75rem  font-normal
+```
+
+---
+
+## Spacing System (8px Grid)
+
+```
+xs:   4px   (0.5 units)
+sm:   8px   (1 unit)
+md:   16px  (2 units)
+lg:   24px  (3 units)
+xl:   32px  (4 units)
+2xl:  48px  (6 units)
+3xl:  64px  (8 units)
+4xl:  96px  (12 units)
+```
+
+---
+
+## Component Anatomy
+
+### Button
+```
+┌─────────────────────────────────┐
+│  ┌───────────────────────────┐  │ ← 2px padding
+│  │  [Icon] Button Text       │  │ ← Content
+│  └───────────────────────────┘  │
+└─────────────────────────────────┘
+     ↑                         ↑
+   12px radius            Shadow
+```
+
+**Variants:**
+- Primary: Gradient blue with shadow
+- Secondary: Solid gray
+- Ghost: Transparent with hover
+- Danger: Gradient red
+- Success: Gradient green
+
+### Card
+```
+┌─────────────────────────────────┐
+│  ┌───────────────────────────┐  │ ← 20px radius
+│  │                           │  │
+│  │  Card Content             │  │ ← Padding (lg: 32px)
+│  │                           │  │
+│  └───────────────────────────┘  │
+└─────────────────────────────────┘
+     ↑
+   Shadow (elevated)
+```
+
+### Question Card
+```
+┌─────────────────────────────────────────┐
+│  [#] Question Text                      │ ← Header
+│  ⚠️ Câu điểm liệt                       │ ← Badge
+├─────────────────────────────────────────┤
+│  ┌─────────────────────────────────┐   │
+│  │ [A] Option 1                    │   │ ← Options
+│  └─────────────────────────────────┘   │
+│  ┌─────────────────────────────────┐   │
+│  │ [B] Option 2                    │   │
+│  └─────────────────────────────────┘   │
+│  ┌─────────────────────────────────┐   │
+│  │ [C] Option 3                    │   │
+│  └─────────────────────────────────┘   │
+└─────────────────────────────────────────┘
+```
+
+---
+
+## Layout Patterns
+
+### Home Page
+```
+┌─────────────────────────────────────────┐
+│           Hero Section                  │ ← Gradient bg
+│        (Full width, centered)           │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌──────────┐    ┌──────────┐         │ ← License cards
+│  │  Card A1 │    │  Card B2 │         │   (2 columns)
+│  └──────────┘    └──────────┘         │
+│                                         │
+├─────────────────────────────────────────┤
+│  ┌────┐ ┌────┐ ┌────┐                 │ ← Features
+│  │ F1 │ │ F2 │ │ F3 │                 │   (3 columns)
+│  └────┘ └────┘ └────┘                 │
+└─────────────────────────────────────────┘
+```
+
+### Exam Page
+```
+┌─────────────────────────────────────────┐
+│  Header (Timer, Progress)               │
+├─────────────────────────────────────────┤
+│  ┌──────────────────┐  ┌──────────┐   │
+│  │                  │  │          │   │
+│  │  Question Card   │  │ Question │   │ ← 3:1 ratio
+│  │                  │  │Navigator │   │
+│  │                  │  │          │   │
+│  └──────────────────┘  └──────────┘   │
+│  [← Prev]        [Next →]              │
+└─────────────────────────────────────────┘
+```
+
+### Result Page
+```
+┌─────────────────────────────────────────┐
+│  Result Header (Pass/Fail)              │ ← Gradient
+├─────────────────────────────────────────┤
+│  [Retry] [Home]                         │ ← Actions
+├─────────────────────────────────────────┤
+│  Statistics Summary                     │
+├─────────────────────────────────────────┤
+│  Question 1 (with answer)               │
+│  Question 2 (with answer)               │ ← Scrollable
+│  Question 3 (with answer)               │
+│  ...                                    │
+└─────────────────────────────────────────┘
+```
+
+---
+
+## Responsive Breakpoints
+
+### Mobile (< 640px)
+```
+┌─────────┐
+│ Header  │
+├─────────┤
+│ Content │ ← Single column
+│ (Stack) │
+├─────────┤
+│ Footer  │
+└─────────┘
+```
+
+### Tablet (640px - 1024px)
+```
+┌───────────────┐
+│    Header     │
+├───────────────┤
+│  ┌────┐┌────┐ │ ← 2 columns
+│  │ C1 ││ C2 │ │
+│  └────┘└────┘ │
+├───────────────┤
+│    Footer     │
+└───────────────┘
+```
+
+### Desktop (> 1024px)
+```
+┌─────────────────────────┐
+│        Header           │
+├─────────────────────────┤
+│ ┌────┐┌────┐┌────┐     │ ← 3+ columns
+│ │ C1 ││ C2 ││ C3 │     │
+│ └────┘└────┘└────┘     │
+├─────────────────────────┤
+│        Footer           │
+└─────────────────────────┘
+```
+
+---
+
+## Animation Timing
+
+### Micro-interactions (200ms)
+- Button hover
+- Badge appearance
+- Icon transitions
+
+### Standard (300ms)
+- Card hover
+- Page transitions
+- Modal open/close
+
+### Complex (500ms)
+- Progress bar fill
+- Result animations
+- Skeleton loading
+
+---
+
+## Shadow Elevation
+
+```
+Level 1 (sm):   0 1px 2px rgba(0,0,0,0.05)
+Level 2 (md):   0 4px 6px rgba(0,0,0,0.1)
+Level 3 (lg):   0 10px 15px rgba(0,0,0,0.1)
+Level 4 (xl):   0 20px 25px rgba(0,0,0,0.15)
+Level 5 (2xl):  0 25px 50px rgba(0,0,0,0.25)
+
+Colored:        0 10px 15px rgba(59,130,246,0.3)
+```
+
+---
+
+## Border Radius
+
+```
+Small (sm):     8px   ← Badges, small buttons
+Medium (md):    12px  ← Buttons, inputs
+Large (lg):     16px  ← Cards
+XL:             20px  ← Large cards
+2XL:            24px  ← Hero sections
+Full:           9999px ← Pills, circles
+```
+
+---
+
+## Icon Usage
+
+### Emoji Icons (Current)
+```
+🏍️  Motorcycle (A1)
+🚗  Car (B2)
+⏱️  Timer
+⚠️  Warning/Critical
+✓   Correct
+✗   Wrong
+📝  Submit
+🔄  Retry
+🏠  Home
+📊  Statistics
+💡  Tip/Explanation
+```
+
+### Icon Sizes
+```
+Small:   16px (1rem)
+Medium:  24px (1.5rem)
+Large:   32px (2rem)
+XL:      48px (3rem)
+Hero:    64px (4rem)
+```
+
+---
+
+## State Indicators
+
+### Question Status
+```
+Unanswered:  ⚪ Gray background
+Answered:    ✅ Green background
+Current:     🔵 Blue background + ring
+Critical:    ⚠️ Red dot indicator
+```
+
+### Answer Status (Result)
+```
+Correct:     ✓ Green border + background
+Wrong:       ✗ Red border + background
+Unselected:  Gray border + background
+```
+
+### Timer Status
+```
+Normal:      🟢 Green (> 60s)
+Warning:     🟡 Amber (< 60s)
+Critical:    🔴 Red (< 30s) + pulse
+```
+
+---
+
+## Accessibility
+
+### Focus States
+```
+Default:     2px solid blue ring
+Offset:      2px from element
+Visible:     Always visible on keyboard nav
+Hidden:      Hidden for mouse users
+```
+
+### Color Contrast
+```
+Text on White:     4.5:1 minimum
+Text on Color:     4.5:1 minimum
+Large Text:        3:1 minimum
+Interactive:       3:1 minimum
+```
+
+### Touch Targets
+```
+Minimum:     44x44px
+Recommended: 48x48px
+Spacing:     8px between targets
+```
+
+---
+
+## Loading States
+
+### Skeleton
+```
+┌─────────────────────────────────┐
+│ ████████████░░░░░░░░░░░░░░░░░░ │ ← Shimmer effect
+│ ████████░░░░░░░░░░░░░░░░░░░░░░ │   (gradient animation)
+│ ████████████████░░░░░░░░░░░░░░ │
+└─────────────────────────────────┘
+```
+
+### Spinner
+```
+    ⏳
+   Rotating
+  (360° loop)
+```
+
+---
+
+## Empty States
+
+### No Data
+```
+┌─────────────────────────────────┐
+│                                 │
+│           📚                    │ ← Large icon
+│                                 │
+│     No exams taken yet          │ ← Message
+│                                 │
+│     [Start Exam]                │ ← Action
+│                                 │
+└─────────────────────────────────┘
+```
+
+---
+
+## Error States
+
+### Error Message
+```
+┌─────────────────────────────────┐
+│                                 │
+│           😕                    │ ← Friendly icon
+│                                 │
+│     Something went wrong        │ ← Clear message
+│     Please try again            │
+│                                 │
+│     [Retry]                     │ ← Recovery action
+│                                 │
+└─────────────────────────────────┘
+```
+
+---
+
+**This visual guide helps maintain consistency across the entire application.**
