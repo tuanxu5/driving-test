@@ -125,22 +125,26 @@ export default function Exam() {
     setShowContinueModal(false);
   }, [savedProgress]);
 
-  // Save progress
+  // Save progress only on beforeunload (reload/close browser)
   useEffect(() => {
     if (!isInitialized || questions.length === 0 || timeLeft === null || showContinueModal) return;
 
-    const progress = {
-      licenseType: licenseType!,
-      examSet: examSet,
-      questions,
-      answers,
-      currentQuestion,
-      timeLeft,
-      viewedQuestions: Array.from(viewedQuestions),
-      timestamp: Date.now(),
+    const handleBeforeUnloadSave = () => {
+      const progress = {
+        licenseType: licenseType!,
+        examSet: examSet,
+        questions,
+        answers,
+        currentQuestion,
+        timeLeft,
+        viewedQuestions: Array.from(viewedQuestions),
+        timestamp: Date.now(),
+      };
+      saveExamProgress(progress);
     };
 
-    saveExamProgress(progress);
+    window.addEventListener('beforeunload', handleBeforeUnloadSave);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnloadSave);
   }, [questions, answers, currentQuestion, timeLeft, viewedQuestions, licenseType, examSet, isInitialized, showContinueModal]);
 
   // Timer
@@ -164,7 +168,7 @@ export default function Exam() {
     }
   }, [timeLeft, questions.length, showContinueModal]);
 
-  // Prevent accidental page close/reload
+  // Prevent accidental page close/reload - but allow intentional navigation
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (questions.length > 0 && !showContinueModal) {
@@ -178,23 +182,20 @@ export default function Exam() {
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [questions.length, showContinueModal]);
 
-  // Handle browser back button
+  // Handle browser back button - clear progress when going back
   useEffect(() => {
     const handlePopState = (e: PopStateEvent) => {
       if (questions.length > 0 && !showContinueModal) {
-        e.preventDefault();
-        const confirmExit = window.confirm('Bạn có chắc muốn thoát? Bài thi sẽ không được lưu lại.');
+        const confirmExit = window.confirm('Bạn có chắc muốn thoát? Tiến trình làm bài sẽ bị xóa.');
         if (confirmExit) {
           clearExamProgress();
           navigate('/');
         } else {
-          // Push state back to prevent navigation
           window.history.pushState(null, '', window.location.pathname);
         }
       }
     };
 
-    // Push initial state to enable back button detection
     window.history.pushState(null, '', window.location.pathname);
     window.addEventListener('popstate', handlePopState);
 
@@ -203,15 +204,15 @@ export default function Exam() {
     };
   }, [questions.length, showContinueModal, navigate]);
 
-  // Clear progress on unmount (when leaving exam page by any other means)
+  // Clear progress when component unmounts (navigating away)
   useEffect(() => {
     return () => {
-      // Only clear if not in continue modal (which means we're actually leaving the exam)
-      if (!showContinueModal && questions.length > 0) {
+      // Always clear when leaving exam page
+      if (questions.length > 0) {
         clearExamProgress();
       }
     };
-  }, [showContinueModal, questions.length]);
+  }, [questions.length]);
 
   const handleAnswer = (answerIndex: number) => {
     const newAnswers = [...answers];
@@ -282,7 +283,7 @@ export default function Exam() {
     const unansweredCount = answers.filter(a => a === null).length;
     
     if (unansweredCount > 0 || answeredCount > 0) {
-      if (window.confirm('Bạn có chắc muốn thoát? Bài thi sẽ không được lưu lại.')) {
+      if (window.confirm('Bạn có chắc muốn thoát? Tiến trình làm bài sẽ bị xóa.')) {
         clearExamProgress();
         navigate('/');
       }
