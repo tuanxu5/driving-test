@@ -74,7 +74,7 @@ export default function Exam() {
 
   // Initialize exam
   useEffect(() => {
-    const validLicenses: LicenseType[] = ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'C', 'D', 'E', 'F'];
+    const validLicenses: LicenseType[] = ['A1', 'A', 'B1', 'B', 'C', 'C1', 'D', 'D1', 'D2', 'BE', 'C1E', 'CE', 'D1E', 'D2E', 'DE'];
     
     if (!licenseType || !validLicenses.includes(licenseType as LicenseType)) {
       navigate('/');

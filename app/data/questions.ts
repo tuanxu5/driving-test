@@ -1,15 +1,20 @@
 // Ngân hàng câu hỏi thi bằng lái xe Việt Nam
 // Import JSON data files
 import dethia1Data from './dethia1.json';
-// import dethia2Data from './dethia2.json';
-// import dethia3Data from './dethia3.json';
-// import dethia4Data from './dethia4.json';
-// import dethib1Data from './dethib1.json';
-// import dethib2Data from './dethib2.json';
-// import dethicData from './dethic.json';
-// import dethidData from './dethid.json';
-// import dethieData from './dethie.json';
-// import dethifData from './dethif.json';
+import dethiaData from './dethia.json';
+import dethib1Data from './dethib1.json';
+import dethibData from './dethib.json';
+import dethibeData from './dethibe.json';
+import dethic1Data from './dethic1.json';
+import dethicData from './dethic.json';
+import dethic1eData from './dethic1e.json';
+import dethiceData from './dethice.json';
+import dethid1Data from './dethid1.json';
+import dethidData from './dethid.json';
+import dethid1eData from './dethid1e.json';
+import dethid2Data from './dethid2.json';
+import dethid2eData from './dethid2e.json';
+import dethideData from './dethide.json';
 
 export type LicenseType = 'A1' | 'A' | 'B1' | 'B' | 'C' | 'C1' | 'D' | 'D1' | 'D2' | 'BE' | 'C1E' | 'CE' | 'D1E' | 'D2E' | 'DE';
 
@@ -170,20 +175,20 @@ function loadSpecificExam(data: any, examNumber: string): Question[] {
 // Map license types to their JSON data
 const dataByLicense: Record<LicenseType, any> = {
   A1: dethia1Data,
-  A: dethia1Data,
-  B1: dethia1Data,
-  B: dethia1Data,
-  C: dethia1Data,
-  C1: dethia1Data,
-  D: dethia1Data,
-  D1: dethia1Data,
-  D2: dethia1Data,
-  BE: dethia1Data,
-  C1E: dethia1Data,
-  CE: dethia1Data,
-  D1E: dethia1Data,
-  D2E: dethia1Data,
-  DE: dethia1Data,
+  A: dethiaData,
+  B1: dethib1Data,
+  B: dethibData,
+  C: dethicData,
+  C1: dethic1Data,
+  D: dethidData,
+  D1: dethid1Data,
+  D2: dethid2Data,
+  BE: dethibeData,
+  C1E: dethic1eData,
+  CE: dethiceData,
+  D1E: dethid1eData,
+  D2E: dethid2eData,
+  DE: dethideData,
 };
 
 export function getRandomQuestions(licenseType: LicenseType, examSet?: string): Question[] {
